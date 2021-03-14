@@ -1,0 +1,94 @@
+<% if notice %>
+<div class="notification">
+  <%= notice %>
+</div>
+<% end %>
+
+<%= form_with(model: interface) do |form| %>
+  <% if interface.errors.any? %>
+    <div class="notification is-danger">
+      <b><%= pluralize(interface.errors.count, "error") %> prohibited this interface from being saved:</b>
+      <ul>
+        <% interface.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :key, 'Interface / Private key', class: 'label' %>
+    <p class="control has-icons-left">
+      <span class="select">
+        <%= form.collection_select :key_id, Key.all, :id, :pretty_privatekey, include_blank: 'Select a key' %>
+      </span>
+      <span class="icon is-small is-left">
+        <i class="fa fa-server"></i>
+      </span>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= form.label :name, 'Configuration file', class: 'label' %>
+    <div class="field has-addons">
+      <div class="control">
+        <%= form.text_field :name, class: 'input' %>
+      </div>
+      <div class="control">
+        <a class="button is-static">.conf</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :psk, 'Pre-shared key (optional)', class: 'label' %>
+    <p class="control has-icons-left">
+      <span class="select">
+      <%= form.collection_select :psk_id, Psk.all, :id, :pretty_name, include_blank: 'Select a key' %>
+      </span>
+      <span class="icon is-small is-left">
+        <i class="fa fa-shield"></i>
+      </span>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= form.label :address, class: 'label' %>
+    <div class="control">
+      <%= form.text_field :address, class: 'input' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :dns, 'DNS servers', class: 'label' %>
+    <div class="control">
+      <%= form.text_field :dns, class: 'input' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :port, 'Listening port', class: 'label' %>
+    <div class="control">
+      <%= form.number_field :port, class: 'input' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :postup, 'PostUp command', class: 'label' %>
+    <div class="control">
+      <%= form.text_area :postup, class: 'textarea', rows: 1 %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :postdown, 'PostDown command', class: 'label' %>
+    <div class="control">
+      <%= form.text_area :postdown, class: 'textarea', rows: 1 %>
+    </div>
+  </div>
+
+  <div class="control">
+    <%= form.submit class: 'button is-primary' %>
+  </div>
+
+<% end %>

@@ -1,0 +1,67 @@
+<% if notice %>
+<div class="notification">
+  <%= notice %>
+</div>
+<% end %>
+
+<%= form_with(model: host) do |form| %>
+  <% if host.errors.any? %>
+    <div class="notification is-danger">
+      <b><%= pluralize(host.errors.count, "error") %> prohibited this host from being saved:</b>
+      <ul>
+        <% host.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name, class: 'label' %>
+    <div class="control">
+      <%= form.text_field :name, class: 'input' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :hostname, 'Hostname or IP address', class: 'label' %>
+    <div class="control">
+      <%= form.text_field :hostname, class: 'input' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :port, 'SSH port (default = 22)', class: 'label' %>
+    <div class="control">
+      <%= form.number_field :port, class: 'input' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :username, 'Username', class: 'label' %>
+    <div class="control">
+      <%= form.text_field :username, class: 'input' %>
+    </div>
+  </div>
+
+<!--  <div class="field">
+    <%= form.label :key, 'Key (optional)', class: 'label' %>
+    <div class="control">
+      <%= form.text_field :key, class: 'input' %>
+    </div>
+  </div> -->
+
+  <div class="field">
+    <%= form.label :path, 'Remote path (default = /etc/wireguard)', class: 'label' %>
+    <div class="control">
+      <%= form.text_field :path, class: 'input' %>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="actions">
+    <%= form.submit class: 'button is-primary' %>
+  </div>
+
+<% end %>

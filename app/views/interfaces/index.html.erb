@@ -1,0 +1,73 @@
+<h1 class="title">WireGuard interfaces</h1>
+
+<h2 class="subtitle">
+  <%= pluralize(@interfaces.total_count, 'interface') %>
+</h2>
+
+<% if notice %>
+<div class="notification">
+  <%= notice %>
+</div>
+<% end %>
+
+<%= paginate @interfaces %>
+
+<script>
+function toggle(e) {
+ var c = document.getElementById('c' + e);
+ var b = document.getElementById('b' + e);
+ if (c.style.display === 'none') {
+   c.style.display = 'block';
+   b.innerHTML = 'Hide';
+ } else {
+   c.style.display = 'none';
+   b.innerHTML = 'Show';
+ }
+}
+</script>
+
+<table class="table is-hoverable is-fullwidth">
+  <thead>
+    <tr>
+      <th>Interface</th>
+      <th colspan="2">Configuration file</th>
+      <th>Peers</th>
+      <th># of peers</th>
+      <th>Address</th>
+      <th>Port</th>
+      <th colspan="4">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @interfaces.each do |interface| %>
+      <tr>
+        <td nowrap><b><%= link_to (fa_icon 'server') + " #{interface.key.name}", edit_interface_path(interface), title: "Public key: #{interface.key.short_publickey}" %></b></td>
+        <td nowrap>
+          <%= link_to (fa_icon 'download') + " #{interface.name}.conf", download_config_path(interface.id) %>
+        </td>
+        <td nowrap>
+          <button id="<%= "b#{interface.id}" %>" onclick="toggle('<%= "#{interface.id}" %>')" class="button is-small">Show</button>
+          <div id="<%= "c#{interface.id}" %>" style="display: none">
+            <br />
+            <small><pre><%= "#{interface.config_interface}\n#{interface.config_peers}".strip %></pre></small>
+          </div>
+        </td>
+        <td nowrap><%= render partial: 'partials/peers', locals: { interface: interface, peers: interface.peers } %></td>
+        <td><%= interface.peers.size %></td>
+        <td><%= interface.address %></td>
+        <td><%= interface.port? ? interface.port : '-' %></td>
+        <td nowrap>
+          <%= link_to (fa_icon 'qrcode') + ' QR', show_qr_path(interface.id), target: '_blank' %>
+        </td>
+        <td nowrap><%= link_to (fa_icon 'edit') + ' Edit', edit_interface_path(interface) %></td>
+        <td nowrap><%= link_to (fa_icon 'trash') + ' Remove', interface, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td nowrap><%= link_to (fa_icon 'users') + ' Peers', interface_peers_path(interface.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Interface', new_interface_path, class: 'button' %>

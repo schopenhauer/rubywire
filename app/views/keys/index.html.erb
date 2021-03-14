@@ -1,0 +1,44 @@
+<h1 class="title">Keys</h1>
+
+<h2 class="subtitle">
+  <%= pluralize(@keys.total_count, 'key') %>
+</h2>
+
+<% if notice %>
+<div class="notification">
+  <%= notice %>
+</div>
+<% end %>
+
+<%= paginate @keys %>
+
+<table class="table is-hoverable is-fullwidth">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Public key</th>
+      <th>Description</th>
+      <th>Used by interfaces</th>
+      <th># of interfaces</th>
+      <th colspan="2">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @keys.each do |key| %>
+      <tr>
+        <td nowrap><b><%= link_to (fa_icon 'key') + " #{key.name}", edit_key_path(key) %></b></td>
+        <td nowrap><code><%= link_to key.short_publickey, edit_key_path(key) %></code></td>
+        <td><%= key.description %></td>
+        <td nowrap><%= render partial: 'partials/interfaces', locals: { key: key } %></td>
+        <td nowrap><%= key.interfaces.size %></td>
+        <td nowrap><%= link_to (fa_icon 'edit') + ' Edit', edit_key_path(key) %></td>
+        <td nowrap><%= link_to (fa_icon 'trash') + ' Remove', key, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Key', new_key_path, class: 'button' %>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @peer.description %>
+</p>
+
+<p>
+  <strong>Interface:</strong>
+  <%= @peer.interface %>
+</p>
+
+<p>
+  <strong>Allowed IPs:</strong>
+  <%= @peer.allowed_ips %>
+</p>
+
+<p>
+  <strong>Endpoint:</strong>
+  <%= @peer.endpoint %>
+</p>
+
+<%= link_to 'Edit', edit_peer_path(@peer) %> |
+<%= link_to 'Back', peers_path %>

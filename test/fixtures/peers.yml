@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  allowed_ips: MyText
+  dns: MyText
+
+two:
+  name: MyText
+  allowed_ips: MyText
+  dns: MyText

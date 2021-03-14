@@ -1,0 +1,13 @@
+<h1 class="title">New PSK</h1>
+
+<% if wg? %>
+<div class="notification is-warning is-light">
+  The below pre-shared key has been generated automatically using the <code>wg genpsk</code> command, when you loaded this page.
+</div>
+<% end %>
+
+<%= render 'form', psk: @psk %>
+
+<br />
+
+<%= link_to 'Back', psks_path %>

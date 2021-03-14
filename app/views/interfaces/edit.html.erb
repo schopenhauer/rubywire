@@ -1,0 +1,30 @@
+
+<div class="columns">
+
+  <div class="column is-7">
+    <h1 class="title">Editing Interface</h1>
+    <%= render 'form', interface: @interface %>
+  </div>
+
+  <div class="column is-1"></div>
+
+  <div class="column is-4">
+    <h1 class="title">Peerings</h1>
+    <% if @interface.peers.size > 0 %>
+    <div class="notification">
+      <b>This interface is currently configured with <%= pluralize(@interface.peers.size, 'peer') %>.</b>
+    </div>
+      <%= render partial: 'partials/peers_table', locals: { peers: @interface.peers.order('allowed_ips') } %>
+    <% else %>
+    <div class="notification">
+      You currently have not configured any peers for this interface.
+    </div>
+    <% end %>
+  </div>
+
+</div>
+
+<br />
+
+<!-- <%= link_to 'Show', @interface %> | -->
+<%= link_to 'Back', interfaces_path %>

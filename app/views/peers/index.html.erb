@@ -1,0 +1,64 @@
+<h1 class="title">WireGuard peers</h1>
+
+<h2 class="subtitle">
+  <%= pluralize(@peers.total_count, 'peer') %>
+  <% if !params[:interface_id].nil? && @peers.size > 0 %>
+  for interface <b><%= link_to @peers.first.interface.key.name, edit_interface_path(@peers.first.interface) %></b>
+  <% end %>
+</h2>
+
+<% if notice %>
+<div class="notification">
+  <%= notice %>
+</div>
+<% end %>
+
+<%= paginate @peers %>
+
+<table class="table is-hoverable is-fullwidth">
+  <thead>
+    <tr>
+      <th>Peer</th>
+      <% if params[:interface_id].nil? %>
+      <th>Interface</th>
+      <% end %>
+      <th>Pre-shared key</th>
+      <th>Allowed IPs</th>
+      <th>Endpoint</th>
+      <th>Keepalive</th>
+      <th colspan="2">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @peers.each do |peer| %>
+      <tr>
+        <td nowrap>
+          <b><%= link_to (fa_icon 'users') + " #{peer.key.name}", edit_peer_path(peer), title: "Public key: #{peer.key.short_publickey}" %></b>
+        </td>
+        <% if params[:interface_id].nil? %>
+        <td nowrap>
+          <b><%= link_to (fa_icon 'server') + " #{peer.interface.key.name}", edit_interface_path(peer.interface), title: "Public key: #{peer.interface.key.short_publickey}" %></b> &raquo;
+          <small><code><%= "#{peer.interface.name}.conf" %></code></small>
+        </td>
+        <% end %>
+        <td nowrap>
+          <% if peer.psk_id? %>
+          <b><%= link_to (fa_icon 'shield') + " #{peer.psk.name}", edit_psk_path(peer.psk), title: "Pre-shared key: #{peer.psk.short_psk}" %></b>
+          <% else %>
+          -
+          <% end %>
+        </td>
+        <td><%= peer.allowed_ips? ? "#{peer.allowed_ips}" : '-' %></td>
+        <td nowrap><%= peer.endpoint? ? "#{peer.endpoint}" : '-' %></td>
+        <td nowrap><%= peer.keepalive? ? "#{peer.keepalive} ms" : '-' %></td>
+        <td nowrap><%= link_to (fa_icon 'edit') + ' Edit', edit_peer_path(peer) %></td>
+        <td nowrap><%= link_to (fa_icon 'trash') + ' Remove', peer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Peer', new_peer_path, class: 'button' %>

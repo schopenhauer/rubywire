@@ -1,0 +1,44 @@
+<% if notice %>
+<div class="notification">
+  <%= notice %>
+</div>
+<% end %>
+
+<%= form_with(model: psk) do |form| %>
+  <% if psk.errors.any? %>
+    <div class="notification is-danger">
+      <b><%= pluralize(psk.errors.count, "error") %> prohibited this psk from being saved:</b>
+      <ul>
+        <% psk.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name, 'Name', class: 'label' %>
+    <div class="control">
+      <%= form.text_field :name, class: 'input' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :psk, 'Pre-shared key', class: 'label' %>
+    <div class="control">
+      <%= form.text_field :psk, class: 'input' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :description, class: 'label' %>
+    <div class="control">
+      <%= form.text_area :description, class: 'textarea', rows: 2 %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: 'button is-primary' %>
+  </div>
+
+<% end %>

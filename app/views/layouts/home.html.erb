@@ -1,0 +1,30 @@
+<h1 class="title">Welcome to RubyWire!</h1>
+
+<h2 class="subtitle">Manage your WireGuard hosts and servers smoothly</h2>
+
+<div class="content">
+
+  <p>
+    This app provides a simple web interface for managing <b><a href="https://www.wireguard.com" target="_blank">WireGuard</a></b> keys and configuration files. It generates configuration files, create QR codes for your mobile devices or uploads configuration files directly to your hosts and servers.
+  </p>
+
+  <ul>
+    <li>Generate and manage key pairs</li>
+    <li>Generate and manage pre-shared keys</li>
+    <li>Create and edit interface configuration</li>
+    <li>Create and edit peer configuration</li>
+    <li>Create and edit interface and peer associations</li>
+    <li>Upload configuration files to hosts and servers using <b><a href="https://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol" target="_blank">SFTP</a></b></li>
+  </ul>
+
+  <p>The project is powered by <%= wg_version %>, Rails <%= Rails.version %> and Ruby <%= RUBY_VERSION %>.</p>
+
+  <hr />
+
+  <% if !wg? %>
+  <div class="notification is-danger is-light">
+    Please consider installing WireGuard on your system first. Read the installation instructions <a href="https://www.wireguard.com/install/">here</a>.
+  </div>
+  <% end %>
+
+</div>

@@ -1,0 +1,9 @@
+<h1 class="title">Editing Peer</h1>
+
+<%= render 'form', peer: @peer %>
+
+<br />
+
+<!-- <%= link_to 'Show', @peer %> | -->
+
+<%= link_to 'Back', (['', '/peers'].include? relative_path(request.referer)) ? peers_path : interfaces_path %>

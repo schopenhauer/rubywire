@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pre-shared key:</strong>
+  <%= @psk.psk %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @psk.description %>
+</p>
+
+<%= link_to 'Edit', edit_psk_path(@psk) %> |
+<%= link_to 'Back', psks_path %>

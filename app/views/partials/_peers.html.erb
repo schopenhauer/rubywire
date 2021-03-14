@@ -1,0 +1,30 @@
+<% if peers.size == 0 %>
+  <%= fa_icon 'angle-right' %>
+  <span class="has-text-grey">
+    No peers configured
+  </span>
+<% end %>
+
+<% peers.each do |peer| %>
+  <%= fa_icon 'angle-right' %> Peer: <b><%= link_to " #{peer.key.name}", edit_peer_path(peer), title: "Public key: #{peer.key.short_publickey}" %></b>
+  <% if peer.allowed_ips? %>
+    <% if subnet?(peer.allowed_ips, interface.address) %>
+    <span class="has-text-grey-light">&mdash;</span>
+    <span class="has-text-success">
+      <%= fa_icon 'check', title: 'Correctly configured' %> <%= peer.allowed_ips %>
+    </span>
+    <% else %>
+    <span class="has-text-grey-light">&mdash;</span>
+    <span class="has-text-warning-dark">
+      <%= fa_icon 'warning', title: 'Potential issue' %> <%= peer.allowed_ips %>
+    </span>
+    <% end %>
+  <% else %>
+  <span class="has-text-grey-light">&mdash;</span>
+  <span class="has-text-danger-dark">
+    <%= fa_icon 'warning' %> please set allowed IPs</span>
+  <% end %>
+  <% if peer != interface.peers.last %>
+  <br />
+  <% end %>
+<% end %>

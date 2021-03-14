@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @interface.name %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @interface.key.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @interface.address %>
+</p>
+
+<p>
+  <strong>DNS:</strong>
+  <%= @interface.dns %>
+</p>
+
+<p>
+  <strong>PostUp:</strong>
+  <%= @interface.postup %>
+</p>
+
+<p>
+  <strong>PostDown:</strong>
+  <%= @interface.postdown %>
+</p>
+
+<p>
+  <strong>ListenPort:</strong>
+  <%= @interface.port %>
+</p>
+
+<%= link_to 'Edit', edit_interface_path(@interface) %> |
+<%= link_to 'Back', interfaces_path %>

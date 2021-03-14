@@ -1,0 +1,66 @@
+<h1 class="title">Upload configuration file</h1>
+
+<% if notice %>
+<div class="notification">
+  <%= notice %>
+</div>
+<% end %>
+
+<%= form_with(model: @host, url: upload_wizard_path(@host)) do |form| %>
+  <% if @host.errors.any? %>
+    <div class="notification is-danger">
+      <b><%= pluralize(@host.errors.count, "error") %> prohibited the configuration file from being uploaded:</b>
+      <ul>
+        <% @host.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :id, 'Destination host', class: 'label' %>
+    <div class="control has-icons-left">
+      <span class="select">
+        <%= form.collection_select :id, @hosts, :id, :hostname, class: 'input', include_blank: 'Select a host' %>
+      </span>
+      <span class="icon is-small is-left">
+        <i class="fa fa-database"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :interface_id, 'Interface / Configuration file', class: 'label' %>
+    <div class="control has-icons-left">
+      <span class="select">
+        <%= form.collection_select :interface_id, @interfaces, :id, :pretty_name, class: 'input', include_blank: 'Select an interface' %>
+      </span>
+      <span class="icon is-small is-left">
+        <i class="fa fa-server"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :overwrite, 'File handling', class: 'label' %>
+    <%= form.check_box :overwrite %> Overwrite file if already exists?
+  </div>
+
+  <hr />
+
+  <div class="notification is-warning">
+    <b>Warning</b> &mdash; With great power comes great responsibility. Please use the upload function at at your own risk.
+  </div>
+
+  <hr />
+
+  <div class="actions">
+    <%= form.submit 'Upload', class: 'button is-primary', data: { confirm: 'Are you sure?' } %>
+  </div>
+
+  <br />
+
+<% end %>
+
+<%= link_to 'Back', hosts_path %>

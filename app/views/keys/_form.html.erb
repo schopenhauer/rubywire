@@ -1,0 +1,51 @@
+<% if notice %>
+<div class="notification">
+  <%= notice %>
+</div>
+<% end %>
+
+<%= form_with(model: key) do |form| %>
+  <% if key.errors.any? %>
+    <div class="notification is-danger">
+      <b><%= pluralize(key.errors.count, "error") %> prohibited this key from being saved:</b>
+      <ul>
+        <% key.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name, class: 'label' %>
+    <div class="control">
+      <%= form.text_field :name, class: 'input' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :publickey, 'Public key', class: 'label' %>
+    <div class="control">
+      <%= form.text_field :publickey, class: 'input' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :privatekey, 'Private key', class: 'label' %>
+    <div class="control">
+      <%= form.text_field :privatekey, class: 'input' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :description, class: 'label' %>
+    <div class="control">
+      <%= form.text_area :description, class: 'textarea', rows: 2 %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: 'button is-primary' %>
+  </div>
+
+<% end %>

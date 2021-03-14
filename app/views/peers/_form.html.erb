@@ -1,0 +1,91 @@
+<% if notice %>
+<div class="notification">
+  <%= notice %>
+</div>
+<% end %>
+
+<%= form_with(model: peer) do |form| %>
+  <% if peer.errors.any? %>
+    <div class="notification is-danger">
+      <b><%= pluralize(peer.errors.count, "error") %> prohibited this peer from being saved:</b>
+      <ul>
+        <% peer.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :key, 'Peer / Public key', class: 'label' %>
+    <p class="control has-icons-left">
+      <span class="select">
+        <%= form.collection_select :key_id, Key.all, :id, :pretty_publickey, class: 'input', include_blank: 'Select a key' %>
+      </span>
+      <span class="icon is-small is-left">
+        <i class="fa fa-key"></i>
+      </span>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= form.label :interface, 'Interface / Private key', class: 'label' %>
+    <p class="control has-icons-left">
+      <span class="select">
+        <%= form.collection_select :interface_id, Interface.all, :id, :pretty_name, class: 'input', include_blank: 'Select an interface' %>
+      </span>
+      <span class="icon is-small is-left">
+        <i class="fa fa-server"></i>
+      </span>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= form.label :psk_id, 'Pre-shared key (optional)', class: 'label' %>
+    <p class="control has-icons-left">
+      <span class="select">
+        <%= form.collection_select :psk_id, Psk.all, :id, :pretty_name, class: 'input', include_blank: 'Select a key' %>
+      </span>
+      <span class="icon is-small is-left">
+        <i class="fa fa-shield"></i>
+      </span>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= form.label :allowed_ips, 'Allowed IPs', class: 'label' %>
+    <div class="control">
+      <%= form.text_field :allowed_ips, class: 'input' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :endpoint, 'Endpoint', class: 'label' %>
+    <div class="control">
+      <%= form.text_field :endpoint, class: 'input' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :keepalive, 'Persistent keepalive', class: 'label' %>
+    <div class="field has-addons">
+      <div class="control">
+        <%= form.number_field :keepalive, class: 'input' %>
+      </div>
+      <div class="control">
+        <a class="button is-static">ms</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :description, class: 'label' %>
+    <div class="control">
+      <%= form.text_area :description, class: 'textarea', rows: 2 %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: 'button is-primary' %>
+  </div>
+<% end %>

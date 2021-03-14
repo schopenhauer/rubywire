@@ -1,0 +1,13 @@
+<h1 class="title">New Key</h1>
+
+<% if wg? %>
+<div class="notification is-warning is-light">
+  The below public/private keypair has been generated automatically using the <code>wg genkey</code> and <code>wg pubkey</code> commands, when you loaded this page.
+</div>
+<% end %>
+
+<%= render 'form', key: @key %>
+
+<br />
+
+<%= link_to 'Back', keys_path %>

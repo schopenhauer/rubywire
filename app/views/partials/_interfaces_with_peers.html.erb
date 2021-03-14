@@ -1,0 +1,13 @@
+<% if key.interfaces.size == 0 %>
+  <p class="has-text-grey">No interfaces configured</p>
+<% end %>
+
+<% key.interfaces.each do |interface| %>
+  <%= fa_icon 'server' %> <b><%= link_to "#{interface.key.name}", edit_interface_path(interface.id), title: "Public key: #{interface.key.publickey}" %></b>
+  <span class="has-text-grey">(<%= "#{interface.name}.conf" %>)</span>
+  <br />
+  <small>
+    <%= render partial: 'partials/peers', locals: { interface: interface } %>
+  </small>
+  <br />
+<% end %>
