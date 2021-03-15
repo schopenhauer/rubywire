@@ -1,0 +1,9 @@
+<% if valid_peering? peer %>
+  <span class="has-text-success">
+    <%= fa_icon 'check' %> OK
+  </span>
+<% else %>
+  <span class="has-text-danger">
+    <%= fa_icon 'warning' %> Fix peering
+  </span>
+<% end %>

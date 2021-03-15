@@ -3,8 +3,7 @@
 <% end %>
 
 <% key.interfaces.each do |interface| %>
-  <%= fa_icon 'server' %> <b><%= link_to "#{interface.key.name}", edit_interface_path(interface.id), title: "Public key: #{interface.key.publickey}" %></b>
-  <span class="has-text-grey">(<%= "#{interface.name}.conf" %>)</span>
+  <%= render partial: 'partials/interface_name', locals: { interface: interface } %>
   <br />
   <small>
     <%= render partial: 'partials/peers', locals: { interface: interface } %>

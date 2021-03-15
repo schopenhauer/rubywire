@@ -1,4 +1,4 @@
-<h1 class="title">WireGuard peers</h1>
+<h1 class="title">WireGuard peerings</h1>
 
 <h2 class="subtitle">
   <%= pluralize(@peers.total_count, 'peer') %>
@@ -15,15 +15,14 @@
 
 <%= paginate @peers %>
 
-<table class="table is-hoverable is-fullwidth">
+<table class="table is-hoverable is-fullwidth is-narrow is-striped">
   <thead>
     <tr>
       <th>Peer</th>
-      <% if params[:interface_id].nil? %>
+      <th>Status</th>
       <th>Interface</th>
-      <% end %>
       <th>Pre-shared key</th>
-      <th>Allowed IPs</th>
+      <th nowrap>Allowed IPs</th>
       <th>Endpoint</th>
       <th>Keepalive</th>
       <th colspan="2">Actions</th>
@@ -36,12 +35,8 @@
         <td nowrap>
           <b><%= link_to (fa_icon 'users') + " #{peer.key.name}", edit_peer_path(peer), title: "Public key: #{peer.key.short_publickey}" %></b>
         </td>
-        <% if params[:interface_id].nil? %>
-        <td nowrap>
-          <b><%= link_to (fa_icon 'server') + " #{peer.interface.key.name}", edit_interface_path(peer.interface), title: "Public key: #{peer.interface.key.short_publickey}" %></b> &raquo;
-          <small><code><%= "#{peer.interface.name}.conf" %></code></small>
-        </td>
-        <% end %>
+        <td nowrap><%= render partial: 'partials/peer_status', locals: { peer: peer } %></td>
+        <td nowrap><%= render partial: 'partials/interface_name', locals: { interface: peer.interface } %></td>
         <td nowrap>
           <% if peer.psk_id? %>
           <b><%= link_to (fa_icon 'shield') + " #{peer.psk.name}", edit_psk_path(peer.psk), title: "Pre-shared key: #{peer.psk.short_psk}" %></b>

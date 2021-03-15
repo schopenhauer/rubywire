@@ -1,0 +1,7 @@
+<b>
+  <%= link_to (fa_icon 'server') + " #{interface.key.name}", edit_interface_path(interface), title: "Public key: #{interface.key.short_publickey}" %>
+</b>
+<%= fa_icon 'caret-right', class: 'has-text-grey-light' %>
+<code>
+  <%= link_to "#{interface.name}.conf", edit_interface_path(interface), title: "Public key: #{interface.key.short_publickey}" %>
+</code>

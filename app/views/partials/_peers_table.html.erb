@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th>Peer</th>
-      <th>Allowed IPs</th>
+      <th nowrap>Allowed IPs</th>
       <th>Endpoint</th>
       <th colspan="2">Actions</th>
     </tr>
@@ -14,8 +14,8 @@
       <td nowrap><b><%= link_to (fa_icon 'users') + " #{peer.key.name}", edit_peer_path(peer), title: "Public key: #{peer.key.publickey}" %></b></td>
       <td><%= peer.allowed_ips? ? "#{peer.allowed_ips}" : '-' %></td>
       <td><%= peer.endpoint? ? "#{peer.endpoint}" : '-' %></td>
-      <td nowrap><%= link_to (fa_icon 'edit') + ' Edit', edit_peer_path(peer) %></td>
-      <td nowrap><%= link_to (fa_icon 'trash') + ' Remove', peer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td nowrap><%= link_to (fa_icon 'edit'), edit_peer_path(peer), title: 'Edit' %></td>
+      <td nowrap><%= link_to (fa_icon 'trash'), peer, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Remove' %></td>
     </tr>
     <% end %>
 

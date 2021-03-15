@@ -3,18 +3,6 @@ require 'ipaddr'
 
 module WgHelper
 
-  # TODO
-  def valid_config?(interface, peer)
-    #i1 = interface # Interface.find(interface)
-    i2 = Interface.find_by(key_id: peer.key_id)
-    #p1 = Peer.where('key_id = ? or interface_id = ?', interface.key_id, interface.id)
-    #p "i1: #{i1.key.privatekey}"
-    #p "i2: #{i2.key.privatekey}"
-    #p "p1: #{p1[0].key.privatekey}"
-    #p1
-    i2
-  end
-
   def subnet?(ip, subnet)
     IPAddr.new(subnet).include? ip
   end

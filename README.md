@@ -23,6 +23,7 @@ This app provides a simple web interface for managing [WireGuard](https://www.wi
 
 - Clone the repository
 - `cd` into the project and run `bundle install`
+- Create database `rails db:migrate`
 - Run `rails s`
 - In a browser, navigate to `localhost:3000` to use
 

@@ -18,23 +18,23 @@ function toggle(e) {
  var b = document.getElementById('b' + e);
  if (c.style.display === 'none') {
    c.style.display = 'block';
-   b.innerHTML = 'Hide';
+   b.innerHTML = '<%= fa_icon 'eye-slash' %> Hide';
  } else {
    c.style.display = 'none';
-   b.innerHTML = 'Show';
+   b.innerHTML = '<%= fa_icon 'eye' %> Show';
  }
 }
 </script>
 
-<table class="table is-hoverable is-fullwidth">
+<table class="table is-hoverable is-fullwidth is-striped">
   <thead>
     <tr>
       <th>Interface</th>
-      <th colspan="2">Configuration file</th>
       <th>Peers</th>
-      <th># of peers</th>
+      <th nowrap># of peers</th>
       <th>Address</th>
       <th>Port</th>
+      <th colspan="3">Configuration file</th>
       <th colspan="4">Actions</th>
     </tr>
   </thead>
@@ -42,27 +42,26 @@ function toggle(e) {
   <tbody>
     <% @interfaces.each do |interface| %>
       <tr>
-        <td nowrap><b><%= link_to (fa_icon 'server') + " #{interface.key.name}", edit_interface_path(interface), title: "Public key: #{interface.key.short_publickey}" %></b></td>
+        <td nowrap><%= render partial: 'partials/interface_name', locals: { interface: interface } %></td>
+        <td nowrap><%= render partial: 'partials/peers', locals: { interface: interface, peers: interface.peers } %></td>
+        <td nowrap><%= link_to (fa_icon 'users') + " #{pluralize(interface.peers.size, 'peer')}", interface_peers_path(interface.id) %></td>
+        <td><%= interface.address %></td>
+        <td><%= interface.port? ? interface.port : '-' %></td>
         <td nowrap>
-          <%= link_to (fa_icon 'download') + " #{interface.name}.conf", download_config_path(interface.id) %>
-        </td>
-        <td nowrap>
-          <button id="<%= "b#{interface.id}" %>" onclick="toggle('<%= "#{interface.id}" %>')" class="button is-small">Show</button>
+          <a id="<%= "b#{interface.id}" %>" onclick="toggle('<%= "#{interface.id}" %>')"><%= fa_icon 'eye' %> Show</a>
           <div id="<%= "c#{interface.id}" %>" style="display: none">
             <br />
             <small><pre><%= "#{interface.config_interface}\n#{interface.config_peers}".strip %></pre></small>
           </div>
         </td>
-        <td nowrap><%= render partial: 'partials/peers', locals: { interface: interface, peers: interface.peers } %></td>
-        <td><%= interface.peers.size %></td>
-        <td><%= interface.address %></td>
-        <td><%= interface.port? ? interface.port : '-' %></td>
+        <td nowrap>
+          <%= link_to (fa_icon 'download') + " Download", download_config_path(interface.id) %>
+        </td>
         <td nowrap>
           <%= link_to (fa_icon 'qrcode') + ' QR', show_qr_path(interface.id), target: '_blank' %>
         </td>
         <td nowrap><%= link_to (fa_icon 'edit') + ' Edit', edit_interface_path(interface) %></td>
         <td nowrap><%= link_to (fa_icon 'trash') + ' Remove', interface, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td nowrap><%= link_to (fa_icon 'users') + ' Peers', interface_peers_path(interface.id) %></td>
       </tr>
     <% end %>
   </tbody>

@@ -11,18 +11,18 @@
     <% if subnet?(peer.allowed_ips, interface.address) %>
     <span class="has-text-grey-light">&mdash;</span>
     <span class="has-text-success">
-      <%= fa_icon 'check', title: 'Correctly configured' %> <%= peer.allowed_ips %>
+      <%= fa_icon 'check', title: 'Peer\'s IP address is within interface\'s subnet address' %> <%= peer.allowed_ips %>
     </span>
     <% else %>
     <span class="has-text-grey-light">&mdash;</span>
-    <span class="has-text-warning-dark">
-      <%= fa_icon 'warning', title: 'Potential issue' %> <%= peer.allowed_ips %>
+    <span class="has-text-info-dark">
+      <%= fa_icon 'exclamation-circle', title: 'Potential issue (e.g. catch-all addresses)' %> <%= peer.allowed_ips %>
     </span>
     <% end %>
   <% else %>
   <span class="has-text-grey-light">&mdash;</span>
-  <span class="has-text-danger-dark">
-    <%= fa_icon 'warning' %> please set allowed IPs</span>
+  <span class="has-text-danger">
+    <%= fa_icon 'warning', title: 'Warning' %> please set allowed IPs</span>
   <% end %>
   <% if peer != interface.peers.last %>
   <br />
