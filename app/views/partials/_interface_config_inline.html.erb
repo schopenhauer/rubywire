@@ -1,0 +1,5 @@
+<a id="<%= "b#{interface.id}" %>" onclick="toggle('<%= "#{interface.id}" %>')"><%= fa_icon 'eye' %> Show</a>
+<div id="<%= "c#{interface.id}" %>" style="display: none">
+  <br />
+  <small><pre><%= "#{interface.config_interface}\n#{interface.config_peers}".strip %></pre></small>
+</div>

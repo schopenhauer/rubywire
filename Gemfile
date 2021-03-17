@@ -22,14 +22,11 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-gem 'rqrcode'
+gem 'net-sftp'
+gem 'kaminari'
 gem 'bulma-rails', '~> 0.9.1'
 gem 'font-awesome-rails'
-gem 'kaminari'
-gem 'net-sftp'
-gem 'x25519'
-gem 'ed25519'
-gem 'bcrypt_pbkdf'
+gem 'rqrcode'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

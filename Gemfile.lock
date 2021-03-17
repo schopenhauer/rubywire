@@ -63,7 +63,6 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     bcrypt (3.1.16)
-    bcrypt_pbkdf (1.1.0)
     bindex (0.8.1)
     bootsnap (1.7.2)
       msgpack (~> 1.0)
@@ -83,7 +82,6 @@ GEM
     chunky_png (1.4.0)
     concurrent-ruby (1.1.8)
     crass (1.0.6)
-    ed25519 (1.2.4)
     erubi (1.10.0)
     ffi (1.15.0)
     font-awesome-rails (4.7.0.7)
@@ -221,7 +219,6 @@ GEM
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    x25519 (1.0.8)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.4.2)
@@ -231,12 +228,10 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
-  bcrypt_pbkdf
   bootsnap (>= 1.4.4)
   bulma-rails (~> 0.9.1)
   byebug
   capybara (>= 3.26)
-  ed25519
   font-awesome-rails
   jbuilder (~> 2.7)
   kaminari
@@ -255,7 +250,6 @@ DEPENDENCIES
   web-console (>= 4.1.0)
   webdrivers
   webpacker (~> 5.0)
-  x25519
 
 RUBY VERSION
    ruby 3.0.0p0

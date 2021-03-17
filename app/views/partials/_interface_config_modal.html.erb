@@ -1,0 +1,19 @@
+<button class="button modal-button is-small" data-target="#modal-<%= interface.id %>" aria-haspopup="true"><%= fa_icon 'eye' %> </button>
+
+<div class="modal" id="modal-<%= interface.id %>">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title"><%= interface.name %>.conf</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <pre><%= "#{interface.config_interface}\n#{interface.config_peers}".strip %></pre>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-primary">Copy to clipboard</button>
+      <button class="button">Close</button>
+    </footer>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>

@@ -24,18 +24,20 @@ function toggle(e) {
    b.innerHTML = '<%= fa_icon 'eye' %> Show';
  }
 }
+
 </script>
 
 <table class="table is-hoverable is-fullwidth is-striped">
   <thead>
     <tr>
       <th>Interface</th>
-      <th>Peers</th>
+      <th>Preview</th>
       <th nowrap># of peers</th>
+      <th>Peers</th>
       <th>Address</th>
       <th>Port</th>
-      <th colspan="3">Configuration file</th>
-      <th colspan="4">Actions</th>
+      <th colspan="2">Configuration file</th>
+      <th colspan="2">Actions</th>
     </tr>
   </thead>
 
@@ -43,25 +45,25 @@ function toggle(e) {
     <% @interfaces.each do |interface| %>
       <tr>
         <td nowrap><%= render partial: 'partials/interface_name', locals: { interface: interface } %></td>
+        <td nowrap>
+          <%= render partial: 'partials/interface_config_modal', locals: { interface: interface } %>
+        </td>
+        <td nowrap><%= link_to (fa_icon 'user') + " #{pluralize(interface.peers.size, 'peer')}", interface_peers_path(interface.id) %></td>
         <td nowrap><%= render partial: 'partials/peers', locals: { interface: interface, peers: interface.peers } %></td>
-        <td nowrap><%= link_to (fa_icon 'users') + " #{pluralize(interface.peers.size, 'peer')}", interface_peers_path(interface.id) %></td>
         <td><%= interface.address %></td>
         <td><%= interface.port? ? interface.port : '-' %></td>
-        <td nowrap>
-          <a id="<%= "b#{interface.id}" %>" onclick="toggle('<%= "#{interface.id}" %>')"><%= fa_icon 'eye' %> Show</a>
-          <div id="<%= "c#{interface.id}" %>" style="display: none">
+        <td nowrap><%= link_to (fa_icon 'download') + " Download", download_config_path(interface.id) %></td>
+        <td nowrap><%= link_to (fa_icon 'qrcode') + ' QR', show_qr_path(interface.id), target: '_blank' %></td>
+        <td nowrap><%= link_to (fa_icon 'edit') + ' Edit', edit_interface_path(interface) %></td>
+        <td nowrap><%= link_to (fa_icon 'trash') + ' Remove', interface, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <tr id="<%= "c#{interface.id}" %>" style="display: none">
+        <td>
+          <div>
             <br />
             <small><pre><%= "#{interface.config_interface}\n#{interface.config_peers}".strip %></pre></small>
           </div>
         </td>
-        <td nowrap>
-          <%= link_to (fa_icon 'download') + " Download", download_config_path(interface.id) %>
-        </td>
-        <td nowrap>
-          <%= link_to (fa_icon 'qrcode') + ' QR', show_qr_path(interface.id), target: '_blank' %>
-        </td>
-        <td nowrap><%= link_to (fa_icon 'edit') + ' Edit', edit_interface_path(interface) %></td>
-        <td nowrap><%= link_to (fa_icon 'trash') + ' Remove', interface, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -70,3 +72,22 @@ function toggle(e) {
 <br />
 
 <%= link_to 'New Interface', new_interface_path, class: 'button' %>
+
+<script>
+  document.querySelectorAll('.modal-button').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var target = document.querySelector(el.getAttribute('data-target'));
+      target.classList.add('is-active');
+      target.querySelector('.modal-close').addEventListener('click',   function() {
+        target.classList.remove('is-active');
+       });
+    });
+    el.addEventListener("keydown", function(e) {
+      var code = e.keyCode || e.which;
+      if (code == 27) {
+        var target = document.querySelector(el.getAttribute('data-target'));
+        target.classList.remove('is-active');
+      }
+    });
+  });
+</script>

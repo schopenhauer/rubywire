@@ -11,7 +11,7 @@
   <tbody>
     <% peers.each do |peer| %>
     <tr>
-      <td nowrap><b><%= link_to (fa_icon 'users') + " #{peer.key.name}", edit_peer_path(peer), title: "Public key: #{peer.key.publickey}" %></b></td>
+      <td nowrap><b><%= link_to (fa_icon 'user') + " #{peer.key.name}", edit_peer_path(peer), title: "Public key: #{peer.key.publickey}" %></b></td>
       <td><%= peer.allowed_ips? ? "#{peer.allowed_ips}" : '-' %></td>
       <td><%= peer.endpoint? ? "#{peer.endpoint}" : '-' %></td>
       <td nowrap><%= link_to (fa_icon 'edit'), edit_peer_path(peer), title: 'Edit' %></td>

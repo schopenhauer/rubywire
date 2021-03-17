@@ -33,7 +33,7 @@
     <% @peers.each do |peer| %>
       <tr>
         <td nowrap>
-          <b><%= link_to (fa_icon 'users') + " #{peer.key.name}", edit_peer_path(peer), title: "Public key: #{peer.key.short_publickey}" %></b>
+          <b><%= link_to (fa_icon 'user') + " #{peer.key.name}", edit_peer_path(peer), title: "Public key: #{peer.key.short_publickey}" %></b>
         </td>
         <td nowrap><%= render partial: 'partials/peer_status', locals: { peer: peer } %></td>
         <td nowrap><%= render partial: 'partials/interface_name', locals: { interface: peer.interface } %></td>
