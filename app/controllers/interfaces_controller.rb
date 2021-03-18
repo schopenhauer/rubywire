@@ -4,7 +4,7 @@ class InterfacesController < ApplicationController
   include QrHelper
 
   before_action :set_interface, only: %i[
-    show edit update destroy generate_qrcode show_config_file download_config_file
+    show edit update destroy show_qr show_config download_config
   ]
 
   # GET /interfaces or /interfaces.json
@@ -25,15 +25,18 @@ class InterfacesController < ApplicationController
   def edit
   end
 
-  def generate_qrcode
+  # GET /interfaces/1/qr
+  def show_qr
     send_data create_qr_as_png(@interface.config_file), type: 'image/png', disposition: 'inline'
   end
 
-  def show_config_file
+  # GET /interfaces/1/show
+  def show_config
     render plain: @interface.config_file
   end
 
-  def download_config_file
+  # GET /interfaces/1/file
+  def download_config
     send_data @interface.config_file, filename: "#{@interface.name}.conf"
   end
 

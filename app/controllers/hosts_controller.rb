@@ -12,6 +12,7 @@ class HostsController < ApplicationController
   def show
   end
 
+  # GET or PATCH /hosts/1/upload
   def upload
     unless params[:host].nil?
       @host.errors.add(:id, 'not selected') if params[:host][:id].nil?

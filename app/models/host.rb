@@ -9,6 +9,8 @@ class Host < ApplicationRecord
 
   paginates_per 10
 
+  private
+
   def default_values
     self.port ||= 22
     self.path ||= '/etc/wireguard'

@@ -1,6 +1,7 @@
 class KeysController < ApplicationController
-  before_action :set_key, only: %i[ show edit update destroy ]
   include WgHelper
+
+  before_action :set_key, only: %i[ show edit update destroy ]
 
   # GET /keys or /keys.json
   def index

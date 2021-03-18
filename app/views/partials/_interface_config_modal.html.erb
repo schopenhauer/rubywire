@@ -1,19 +1,25 @@
-<button class="button modal-button is-small" data-target="#modal-<%= interface.id %>" aria-haspopup="true"><%= fa_icon 'eye' %> </button>
+<button class="button modal-button is-small" data-target="#modal-<%= interface.id %>" aria-haspopup="true">
+  <%= fa_icon 'eye' %>
+</button>
 
 <div class="modal" id="modal-<%= interface.id %>">
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title"><%= interface.name %>.conf</p>
-      <button class="delete" aria-label="close"></button>
+      <p class="modal-card-title">
+        Configuration file: <b><%= link_to "#{interface.name}.conf", download_config_path(interface) %></b>
+      </p>
+      <button class="delete close" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
-      <pre><%= "#{interface.config_interface}\n#{interface.config_peers}".strip %></pre>
+      <pre id="config"><%= highlight_syntax "#{interface.config_interface}\n#{interface.config_peers}" %></pre>
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-primary">Copy to clipboard</button>
-      <button class="button">Close</button>
+      <button class="button copy is-primary" data-clipboard-action="copy" data-clipboard-target="#config">
+        <%= fa_icon 'copy' %> &nbsp; Copy to clipboard
+      </button>
+      <button class="button close">Close</button>
     </footer>
   </div>
-  <button class="modal-close is-large" aria-label="close"></button>
+  <button class="modal-close close is-large" aria-label="close"></button>
 </div>

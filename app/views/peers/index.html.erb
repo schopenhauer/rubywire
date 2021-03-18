@@ -15,16 +15,17 @@
 
 <%= paginate @peers %>
 
-<table class="table is-hoverable is-fullwidth is-narrow is-striped">
+<table class="table is-hoverable is-fullwidth is-striped">
   <thead>
     <tr>
       <th>Peer</th>
-      <th>Status</th>
+      <th>Peering</th>
       <th>Interface</th>
       <th>Pre-shared key</th>
       <th nowrap>Allowed IPs</th>
       <th>Endpoint</th>
       <th>Keepalive</th>
+      <th>Counterpart</th>
       <th colspan="2">Actions</th>
     </tr>
   </thead>
@@ -47,6 +48,12 @@
         <td><%= peer.allowed_ips? ? "#{peer.allowed_ips}" : '-' %></td>
         <td nowrap><%= peer.endpoint? ? "#{peer.endpoint}" : '-' %></td>
         <td nowrap><%= peer.keepalive? ? "#{peer.keepalive} ms" : '-' %></td>
+        <td nowrap>
+          <% if valid_peering?(peer) %>
+          <%= link_to (fa_icon 'eye') + ' Show', interface_peers_path(reciprocal_peer(peer).interface) %></td>
+          <% else %>
+          -
+          <% end %>
         <td nowrap><%= link_to (fa_icon 'edit') + ' Edit', edit_peer_path(peer) %></td>
         <td nowrap><%= link_to (fa_icon 'trash') + ' Remove', peer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

@@ -12,7 +12,7 @@
 
 <%= paginate @hosts %>
 
-<table class="table is-hoverable is-fullwidth is-narrow is-striped">
+<table class="table is-hoverable is-fullwidth is-striped">
   <thead>
     <tr>
       <th>Name</th>
@@ -27,10 +27,8 @@
   <tbody>
     <% @hosts.each do |host| %>
       <tr>
-        <td nowrap>
-          <b><%= link_to (fa_icon 'database') + " #{host.name}", edit_host_path(host)  %></b>
-        </td>
-        <td nowrap><%= link_to (fa_icon 'external-link') + " #{host.hostname}", "ssh://#{host.username}@#{host.hostname}:#{host.port}", title: "Open in terminal" %></td>
+        <td nowrap><b><%= link_to (fa_icon 'database') + " #{host.name}", edit_host_path(host)  %></b>s</td>
+        <td nowrap><%= link_to (fa_icon 'external-link') + " #{host.hostname}", "ssh://#{host.username}@#{host.hostname}:#{host.port}", title: 'Open in terminal' %></td>
         <td nowrap><%= host.port %></td>
         <td nowrap><%= host.username %></td>
         <td><code><%= host.path %></code></td>

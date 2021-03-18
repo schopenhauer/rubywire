@@ -1,6 +1,6 @@
 # RubyWire
 
-This app provides a simple web interface for managing [WireGuard](https://www.wireguard.com) keys and configuration files. It generates configuration files, create QR codes for your mobile devices or uploads configuration files to your hosts and servers.
+This app provides a simple web interface for managing [WireGuard](https://www.wireguard.com) keys and configuration files. RubyWire generates configuration files, create QR codes for your mobile devices or uploads configuration files to your hosts and servers.
 
 <img src="https://github.com/schopenhauer/rubywire/blob/main/app/assets/images/logo_transparent_alt.png">
 
@@ -16,7 +16,7 @@ This app provides a simple web interface for managing [WireGuard](https://www.wi
 
 ## Requirements
 
-- Ruby 3.x
+- Ruby 3.0
 - WireGuard, including wireguard-tools (i.e. `wg` command).
 
 ## How to use

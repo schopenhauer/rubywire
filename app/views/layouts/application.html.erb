@@ -7,15 +7,16 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js' %>
   </head>
   <body>
 
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <%= link_to image_tag("logo_transparent.png", width: 200, height: 40), root_url %>
+        <%= link_to image_tag('logo_transparent.png', width: 200, height: 40), root_url %>
       </div>
 
-      <div id="navbarBasicExample" class="navbar-brand">
+      <div id="navbarBasic" class="navbar-brand">
         <div class="navbar-start">
           <%= link_to (fa_icon 'home') + '&nbsp; Home'.html_safe, root_url, class: 'navbar-item' %>
           <%= link_to (fa_icon 'server') + '&nbsp; Interfaces'.html_safe, interfaces_path, class: 'navbar-item' %>

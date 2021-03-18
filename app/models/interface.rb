@@ -8,7 +8,7 @@ class Interface < ApplicationRecord
   validates :address, presence: true
   validates :port, presence: false, length: { minimum: 0, maximum: 65353 }, allow_blank: true
 
-  before_validation :assign_psk
+  before_validation :assign_psk, :default_values
 
   paginates_per 10
 
@@ -53,10 +53,17 @@ class Interface < ApplicationRecord
 
   private
 
+  def default_values
+    #self.port ||= 51820
+  end
+
   def assign_psk
     peers.each do |peer|
       peer.psk_id = psk_id
       peer.save
+      #TODO: set psk @ peer and apply to reciprocal_peer? (instead of interface)
+      #reciprocal_peer(peer).psk_id = psk_id
+      #reciprocal_peer(peer).save
     end
   end
 

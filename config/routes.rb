@@ -10,13 +10,15 @@ Rails.application.routes.draw do
     resources :peers
   end
 
-  get '/interfaces/:id/qr', to: 'interfaces#generate_qrcode', as: 'show_qr'
-  get '/interfaces/:id/file', to: 'interfaces#download_config_file', as: 'download_config'
-  get '/interfaces/:id/show', to: 'interfaces#show_config_file', as: 'show_config'
+  get '/interfaces/:id/qr', to: 'interfaces#show_qr', as: 'show_qr'
+  get '/interfaces/:id/show', to: 'interfaces#show_config', as: 'show_config'
+  get '/interfaces/:id/file', to: 'interfaces#download_config', as: 'download_config'
 
   resources :hosts
 
   get '/hosts/:id/upload', to: 'hosts#upload', as: 'upload_wizard'
   patch '/hosts/:id/upload', to: 'hosts#upload'
+
+  match '*path' => 'application#home', via: [:get, :post]
 
 end

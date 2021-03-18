@@ -12,7 +12,7 @@
 
 <%= paginate @interfaces %>
 
-<script>
+<!-- <script>
 function toggle(e) {
  var c = document.getElementById('c' + e);
  var b = document.getElementById('b' + e);
@@ -24,8 +24,7 @@ function toggle(e) {
    b.innerHTML = '<%= fa_icon 'eye' %> Show';
  }
 }
-
-</script>
+</script> -->
 
 <table class="table is-hoverable is-fullwidth is-striped">
   <thead>
@@ -45,15 +44,13 @@ function toggle(e) {
     <% @interfaces.each do |interface| %>
       <tr>
         <td nowrap><%= render partial: 'partials/interface_name', locals: { interface: interface } %></td>
-        <td nowrap>
-          <%= render partial: 'partials/interface_config_modal', locals: { interface: interface } %>
-        </td>
+        <td nowrap><%= render partial: 'partials/interface_config_modal', locals: { interface: interface } %></td>
         <td nowrap><%= link_to (fa_icon 'user') + " #{pluralize(interface.peers.size, 'peer')}", interface_peers_path(interface.id) %></td>
         <td nowrap><%= render partial: 'partials/peers', locals: { interface: interface, peers: interface.peers } %></td>
         <td><%= interface.address %></td>
         <td><%= interface.port? ? interface.port : '-' %></td>
-        <td nowrap><%= link_to (fa_icon 'download') + " Download", download_config_path(interface.id) %></td>
-        <td nowrap><%= link_to (fa_icon 'qrcode') + ' QR', show_qr_path(interface.id), target: '_blank' %></td>
+        <td nowrap><%= link_to (fa_icon 'download') + " Download", download_config_path(interface) %></td>
+        <td nowrap><%= link_to (fa_icon 'qrcode') + ' QR', show_qr_path(interface), target: '_blank' %></td>
         <td nowrap><%= link_to (fa_icon 'edit') + ' Edit', edit_interface_path(interface) %></td>
         <td nowrap><%= link_to (fa_icon 'trash') + ' Remove', interface, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -74,15 +71,19 @@ function toggle(e) {
 <%= link_to 'New Interface', new_interface_path, class: 'button' %>
 
 <script>
+  let cjs = new ClipboardJS('.copy');
+
   document.querySelectorAll('.modal-button').forEach(function(el) {
     el.addEventListener('click', function() {
       var target = document.querySelector(el.getAttribute('data-target'));
       target.classList.add('is-active');
-      target.querySelector('.modal-close').addEventListener('click',   function() {
-        target.classList.remove('is-active');
-       });
+      target.querySelectorAll('.close').forEach(function(t) {
+        t.addEventListener('click',   function() {
+          target.classList.remove('is-active');
+        });
+      });
     });
-    el.addEventListener("keydown", function(e) {
+    el.addEventListener('keydown', function(e) {
       var code = e.keyCode || e.which;
       if (code == 27) {
         var target = document.querySelector(el.getAttribute('data-target'));
