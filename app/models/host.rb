@@ -2,7 +2,7 @@ class Host < ApplicationRecord
   validates :name, presence: true
   validates :username, presence: true
   validates :hostname, presence: true
-  validates :port, presence: true, length: { minimum: 0, maximum: 65353 }
+  validates :port, presence: true, length: { minimum: 0, maximum: 65_353 }
   validates :path, presence: true
 
   before_validation :default_values

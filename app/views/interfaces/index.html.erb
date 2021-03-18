@@ -12,20 +12,6 @@
 
 <%= paginate @interfaces %>
 
-<!-- <script>
-function toggle(e) {
- var c = document.getElementById('c' + e);
- var b = document.getElementById('b' + e);
- if (c.style.display === 'none') {
-   c.style.display = 'block';
-   b.innerHTML = '<%= fa_icon 'eye-slash' %> Hide';
- } else {
-   c.style.display = 'none';
-   b.innerHTML = '<%= fa_icon 'eye' %> Show';
- }
-}
-</script> -->
-
 <table class="table is-hoverable is-fullwidth is-striped">
   <thead>
     <tr>
@@ -44,23 +30,15 @@ function toggle(e) {
     <% @interfaces.each do |interface| %>
       <tr>
         <td nowrap><%= render partial: 'partials/interface_name', locals: { interface: interface } %></td>
-        <td nowrap><%= render partial: 'partials/interface_config_modal', locals: { interface: interface } %></td>
+        <td nowrap><%= render partial: 'partials/interface_config', locals: { interface: interface } %></td>
         <td nowrap><%= link_to (fa_icon 'user') + " #{pluralize(interface.peers.size, 'peer')}", interface_peers_path(interface.id) %></td>
-        <td nowrap><%= render partial: 'partials/peers', locals: { interface: interface, peers: interface.peers } %></td>
+        <td nowrap><%= render partial: 'partials/peers_status', locals: { interface: interface, peers: interface.peers } %></td>
         <td><%= interface.address %></td>
         <td><%= interface.port? ? interface.port : '-' %></td>
         <td nowrap><%= link_to (fa_icon 'download') + " Download", download_config_path(interface) %></td>
         <td nowrap><%= link_to (fa_icon 'qrcode') + ' QR', show_qr_path(interface), target: '_blank' %></td>
         <td nowrap><%= link_to (fa_icon 'edit') + ' Edit', edit_interface_path(interface) %></td>
         <td nowrap><%= link_to (fa_icon 'trash') + ' Remove', interface, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-      <tr id="<%= "c#{interface.id}" %>" style="display: none">
-        <td>
-          <div>
-            <br />
-            <small><pre><%= "#{interface.config_interface}\n#{interface.config_peers}".strip %></pre></small>
-          </div>
-        </td>
       </tr>
     <% end %>
   </tbody>

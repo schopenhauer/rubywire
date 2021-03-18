@@ -3,7 +3,7 @@
 <h2 class="subtitle">
   <%= pluralize(@peers.total_count, 'peer') %>
   <% if !params[:interface_id].nil? && @peers.size > 0 %>
-  for interface <b><%= link_to @peers.first.interface.key.name, edit_interface_path(@peers.first.interface) %></b>
+  configured on interface <b><%= link_to @peers.first.interface.key.name, edit_interface_path(@peers.first.interface) %></b>
   <% end %>
 </h2>
 

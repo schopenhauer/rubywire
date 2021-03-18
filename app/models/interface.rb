@@ -6,9 +6,10 @@ class Interface < ApplicationRecord
   validates :name, presence: true
   validates :key, presence: true
   validates :address, presence: true
-  validates :port, presence: false, length: { minimum: 0, maximum: 65353 }, allow_blank: true
+  validates :port, presence: false, length: { minimum: 0, maximum: 65_353 }, allow_blank: true
 
-  before_validation :assign_psk, :default_values
+  # before_validation :default_values
+  # after_save :auto_assign_psk
 
   paginates_per 10
 
@@ -17,11 +18,11 @@ class Interface < ApplicationRecord
   end
 
   def config_file
-    <<~config
+    <<~CONFIG
     # Config file generated at #{Time.now}\n
     #{config_interface}
     #{config_peers}
-    config
+    CONFIG
   end
 
   def config_interface
@@ -54,17 +55,14 @@ class Interface < ApplicationRecord
   private
 
   def default_values
-    #self.port ||= 51820
+    self.port ||= 51_820
   end
 
-  def assign_psk
-    peers.each do |peer|
-      peer.psk_id = psk_id
-      peer.save
-      #TODO: set psk @ peer and apply to reciprocal_peer? (instead of interface)
-      #reciprocal_peer(peer).psk_id = psk_id
-      #reciprocal_peer(peer).save
-    end
-  end
+  # def auto_assign_psk
+  #   peers.each do |peer|
+  #     peer.psk_id = psk_id
+  #     peer.save
+  #   end
+  # end
 
 end

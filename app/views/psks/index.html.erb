@@ -18,8 +18,8 @@
       <th>Name</th>
       <th>Pre-shared key</th>
       <th>Description</th>
-      <th>Used by interfaces</th>
-      <th># of interfaces</th>
+      <th>Used by peers</th>
+      <th># of peers</th>
       <th colspan="2">Actions</th>
     </tr>
   </thead>
@@ -30,8 +30,8 @@
         <td nowrap><b><%= link_to (fa_icon 'shield') + " #{psk.name}", edit_psk_path(psk) %></b></td>
         <td nowrap><code><%= link_to psk.short_psk, edit_psk_path(psk) %></code></td>
         <td><%= psk.description %></td>
-        <td nowrap><%= render partial: 'partials/interfaces', locals: { key: psk } %> </td>
-        <td nowrap><%= psk.interfaces.size %></td>
+        <td nowrap><%= render partial: 'partials/peers', locals: { peers: psk.peers } %> </td>
+        <td nowrap><%= psk.peers.size %></td>
         <td nowrap><%= link_to (fa_icon 'edit') + ' Edit', edit_psk_path(psk) %></td>
         <td nowrap><%= link_to (fa_icon 'trash') + ' Remove', psk, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
