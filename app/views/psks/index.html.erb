@@ -1,7 +1,7 @@
 <h1 class="title">Pre-shared keys</h1>
 
 <h2 class="subtitle">
-  <%= pluralize(@psks.total_count, 'PSK') %>
+  <%= pluralize(@psks.total_count, 'PSK') %> found
 </h2>
 
 <% if notice %>
@@ -20,6 +20,7 @@
       <th>Description</th>
       <th>Used by peers</th>
       <th># of peers</th>
+      <th>Last updated</th>
       <th colspan="2">Actions</th>
     </tr>
   </thead>
@@ -32,6 +33,7 @@
         <td><%= psk.description %></td>
         <td nowrap><%= render partial: 'partials/peers', locals: { peers: psk.peers } %> </td>
         <td nowrap><%= psk.peers.size %></td>
+        <td nowrap><%= l psk.updated_at, format: :default %></td>
         <td nowrap><%= link_to (fa_icon 'edit') + ' Edit', edit_psk_path(psk) %></td>
         <td nowrap><%= link_to (fa_icon 'trash') + ' Remove', psk, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

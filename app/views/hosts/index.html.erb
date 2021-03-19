@@ -1,7 +1,7 @@
 <h1 class="title">Hosts</h1>
 
 <h2 class="subtitle">
-  <%= pluralize(@hosts.total_count, 'host') %>
+  <%= pluralize(@hosts.total_count, 'host') %> found
 </h2>
 
 <% if notice %>
@@ -20,6 +20,7 @@
       <th>Port</th>
       <th>Username</th>
       <th>Remote path</th>
+      <th nowrap>Last updated</th>
       <th colspan="4">Actions</th>
     </tr>
   </thead>
@@ -32,6 +33,7 @@
         <td nowrap><%= host.port %></td>
         <td nowrap><%= host.username %></td>
         <td><code><%= host.path %></code></td>
+        <td nowrap><%= l host.updated_at, format: :default %></td>
         <td nowrap><%= link_to (fa_icon 'upload') + ' Upload', upload_wizard_path(host) %></td>
         <td nowrap><%= link_to (fa_icon 'edit') + ' Edit', edit_host_path(host) %></td>
         <td nowrap><%= link_to (fa_icon 'trash') + ' Remove', host, method: :delete, data: { confirm: 'Are you sure?' } %></td>

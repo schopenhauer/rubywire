@@ -1,7 +1,7 @@
 <h1 class="title">WireGuard peerings</h1>
 
 <h2 class="subtitle">
-  <%= pluralize(@peers.total_count, 'peer') %>
+  <%= pluralize(@peers.total_count, 'peer') %> found
   <% if !params[:interface_id].nil? && @peers.size > 0 %>
   configured on interface <b><%= link_to @peers.first.interface.key.name, edit_interface_path(@peers.first.interface) %></b>
   <% end %>
@@ -19,13 +19,12 @@
   <thead>
     <tr>
       <th>Peer</th>
-      <th>Peering</th>
       <th>Interface</th>
-      <th>Pre-shared key</th>
+      <th colspan="2">Peering</th>
       <th nowrap>Allowed IPs</th>
       <th>Endpoint</th>
       <th>Keepalive</th>
-      <th>Counterpart</th>
+      <th nowrap>Pre-shared key</th>
       <th colspan="2">Actions</th>
     </tr>
   </thead>
@@ -36,8 +35,17 @@
         <td nowrap>
           <b><%= link_to (fa_icon 'user') + " #{peer.key.name}", edit_peer_path(peer), title: "Public key: #{peer.key.short_publickey}" %></b>
         </td>
-        <td nowrap><%= render partial: 'partials/peer_status', locals: { peer: peer } %></td>
         <td nowrap><%= render partial: 'partials/interface_name', locals: { interface: peer.interface } %></td>
+        <td nowrap><%= render partial: 'partials/peer_status', locals: { peer: peer } %></td>
+        <td nowrap>
+          <% if valid_peering?(peer) %>
+          <%= link_to (fa_icon 'gg') + ' Counterparts', interface_peers_path(reciprocal_peer(peer).interface) %></td>
+          <% else %>
+          -
+          <% end %>
+        <td><%= peer.allowed_ips? ? "#{peer.allowed_ips}" : '-' %></td>
+        <td nowrap><%= peer.endpoint? ? "#{peer.endpoint}" : '-' %></td>
+        <td nowrap><%= peer.keepalive? ? "#{peer.keepalive} ms" : '-' %></td>
         <td nowrap>
           <% if peer.psk_id? %>
           <b><%= link_to (fa_icon 'shield') + " #{peer.psk.name}", edit_psk_path(peer.psk), title: "Pre-shared key: #{peer.psk.short_psk}" %></b>
@@ -45,15 +53,6 @@
           -
           <% end %>
         </td>
-        <td><%= peer.allowed_ips? ? "#{peer.allowed_ips}" : '-' %></td>
-        <td nowrap><%= peer.endpoint? ? "#{peer.endpoint}" : '-' %></td>
-        <td nowrap><%= peer.keepalive? ? "#{peer.keepalive} ms" : '-' %></td>
-        <td nowrap>
-          <% if valid_peering?(peer) %>
-          <%= link_to (fa_icon 'eye') + ' Show', interface_peers_path(reciprocal_peer(peer).interface) %></td>
-          <% else %>
-          -
-          <% end %>
         <td nowrap><%= link_to (fa_icon 'edit') + ' Edit', edit_peer_path(peer) %></td>
         <td nowrap><%= link_to (fa_icon 'trash') + ' Remove', peer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

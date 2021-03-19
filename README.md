@@ -13,11 +13,12 @@ This app provides a simple web interface for managing [WireGuard](https://www.wi
 - Create and edit interface and peer associations
 - Generate QR codes of your configuration files
 - Upload configuration files to hosts and servers using [SFTP](https://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol)
+- Visualise network nodes in a graph
 
 ## Requirements
 
 - Ruby 3.0
-- WireGuard, including wireguard-tools (i.e. `wg` command).
+- WireGuard, including wireguard-tools (i.e. `wg` command)
 
 ## How to use
 
@@ -33,3 +34,4 @@ This app provides a simple web interface for managing [WireGuard](https://www.wi
 * [Ruby](https://www.ruby-lang.org) 3.0
 * [Ruby on Rails](https://rubyonrails.org) 6.1
 * [Bulma](https://bulma.io) CSS framework
+* [D3.js](https://d3js.org) library

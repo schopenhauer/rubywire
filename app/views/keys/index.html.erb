@@ -1,7 +1,7 @@
-<h1 class="title">Keys</h1>
+<h1 class="title">WireGuard keys</h1>
 
 <h2 class="subtitle">
-  <%= pluralize(@keys.total_count, 'key') %>
+  <%= pluralize(@keys.total_count, 'key') %> found
 </h2>
 
 <% if notice %>
@@ -31,7 +31,7 @@
         <td nowrap><code><%= link_to key.short_publickey, edit_key_path(key) %></code></td>
         <td><%= key.description %></td>
         <td nowrap><%= render partial: 'partials/interfaces', locals: { key: key } %></td>
-        <td nowrap><%= key.updated_at %></td>
+        <td nowrap><%= l key.updated_at, format: :default %></td>
         <td nowrap><%= link_to (fa_icon 'edit') + ' Edit', edit_key_path(key) %></td>
         <td nowrap><%= link_to (fa_icon 'trash') + ' Remove', key, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

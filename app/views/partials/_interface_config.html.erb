@@ -12,10 +12,10 @@
       <button class="delete close" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
-      <pre id="config"><%= highlight_syntax "#{interface.config_interface}\n#{interface.config_peers}" %></pre>
+      <pre id="config-<%= interface.id %>"><%= highlight_syntax "#{interface.config_interface}\n#{interface.config_peers}" %></pre>
     </section>
     <footer class="modal-card-foot">
-      <button class="button copy is-primary" data-clipboard-action="copy" data-clipboard-target="#config">
+      <button class="button copy is-primary" data-clipboard-action="copy" data-clipboard-target="#config-<%= interface.id %>">
         <%= fa_icon 'copy' %> &nbsp; Copy to clipboard
       </button>
       <button class="button close">Close</button>
