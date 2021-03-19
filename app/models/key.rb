@@ -8,11 +8,11 @@ class Key < ApplicationRecord
   paginates_per 10
 
   def pretty_privatekey
-    "#{name} &mdash; #{privatekey}".html_safe
+    "#{name} — #{privatekey}"
   end
 
   def pretty_publickey
-    "#{name} &mdash; #{publickey}".html_safe
+    "#{name} — #{publickey}"
   end
 
   def short_privatekey

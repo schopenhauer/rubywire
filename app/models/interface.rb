@@ -14,7 +14,7 @@ class Interface < ApplicationRecord
   paginates_per 10
 
   def pretty_name
-    "#{key.name} | #{name}.conf &mdash; #{key.privatekey}".html_safe
+    "#{key.name} | #{name}.conf — #{key.privatekey}"
   end
 
   def config_file

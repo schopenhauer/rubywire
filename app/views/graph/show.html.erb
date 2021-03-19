@@ -1,0 +1,96 @@
+<h1 class="title">Network graph</h1>
+
+<h2 class="subtitle">Visualise nodes in your network</h2>
+
+<%= javascript_include_tag 'https://d3js.org/d3.v5.min.js' %>
+
+<style>
+svg {
+  width: 100vw;
+  height: 100vh;
+}
+
+.edge {
+  stroke: #555;
+}
+
+.node>text {
+  stroke: #333;
+}
+
+.node>circle {
+  stroke: #555;
+  stroke-width: 2px;
+  fill: yellow;
+  cursor: pointer;
+}
+</style>
+
+<script>
+  let width = 1000;
+  let height = 400;
+
+  var svg = d3.select("body").append("svg")
+  .attr("width", width)
+  .attr("height", height);
+
+  d3.json("<%= graph_json_path %>").then(data => {
+
+  let graph = { nodes: {}, edges: [] };
+
+  data.nodes.forEach(node => {
+    graph.nodes[node.id] = {
+      label: node.name + '@' + node.key,
+      x: Math.random() * 500 + 100,
+      y: Math.random() * 500 + 100
+    }
+  });
+
+  data.links.forEach(edge => {
+    graph.edges.push({
+      source: graph.nodes[edge.source],
+      target: graph.nodes[edge.target]
+    })
+  })
+
+console.log(graph);
+
+var edge = svg.selectAll(".edge")
+.data(graph.edges)
+.enter().append("line")
+.attr("class", "edge")
+.attr("x1", d => d.source.x)
+.attr("y1", d => d.source.y)
+.attr("x2", d => d.target.x)
+.attr("y2", d => d.target.y);
+
+var node = svg.selectAll("node")
+.data(Object.values(graph.nodes))
+.enter().append("g")
+.attr("class", "node");
+
+node.append("circle")
+.attr("r", 20)
+.attr("cx", d => d.x)
+.attr("cy", d => d.y)
+.call(d3.drag().on("drag", dragged));
+
+node.append("text")
+.attr("dx", d => d.x)
+.attr("dy", d => d.y)
+.attr("text-anchor", "middle")
+.attr("dominant-baseline", "central")
+.attr("pointer-events", "none")
+.text(d => d.label);
+
+function dragged(d) {
+  d.x = d3.event.x, d.y = d3.event.y;
+  d3.select(this).attr("cx", d.x).attr("cy", d.y);
+  d3.select(this.parentNode).select("text").attr("dx", d.x).attr("dy", d.y);
+  edge.filter(function(l) { return l.source === d; }).attr("x1", d.x).attr("y1", d.y);
+  edge.filter(function(l) { return l.target === d; }).attr("x2", d.x).attr("y2", d.y);
+}
+
+}).catch(e => console.log(e));
+
+</script>

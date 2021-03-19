@@ -19,6 +19,7 @@
       <div id="navbarBasic" class="navbar-brand">
         <div class="navbar-start">
           <%= link_to (fa_icon 'home') + '&nbsp; Home'.html_safe, root_url, class: 'navbar-item' %>
+          <%= link_to (fa_icon 'globe') + '&nbsp; Network'.html_safe, graph_path, class: 'navbar-item', 'data-turbolinks': false %>
           <%= link_to (fa_icon 'server') + '&nbsp; Interfaces'.html_safe, interfaces_path, class: 'navbar-item' %>
           <%= link_to (fa_icon 'user') + '&nbsp; Peerings'.html_safe, peers_path, class: 'navbar-item' %>
           <%= link_to (fa_icon 'key') + '&nbsp; Keys'.html_safe, keys_path, class: 'navbar-item' %>

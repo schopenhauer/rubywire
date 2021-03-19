@@ -2,6 +2,7 @@ require 'rqrcode'
 
 class InterfacesController < ApplicationController
   include QrHelper
+  include PeersHelper
 
   before_action :set_interface, only: %i[
     show edit update destroy show_qr show_config download_config

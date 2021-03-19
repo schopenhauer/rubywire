@@ -7,7 +7,7 @@ class Psk < ApplicationRecord
   paginates_per 10
 
   def pretty_name
-    "#{name} &mdash; #{psk}".html_safe
+    "#{name} — #{psk}"
   end
 
   def short_psk
