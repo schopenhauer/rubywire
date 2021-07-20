@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vivagraphjs/0.12.0/vivagraph.min.js"></script>
+
+<script>
+  var graph = Viva.Graph.graph();
+  graph.addLink(1, 2);
+
+  var renderer = Viva.Graph.View.renderer(graph);
+  renderer.run();
+</script>
+
+<style type='text/css'>
+    #graph1{
+        position: absolute;
+        vertical-align:middle;
+        width: 100%;
+        height: 100%;
+    }
+    #graph1 > svg {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+</head>
+<body onload='onLoad()' style='width:100%; height: 100%; position : absolute'>
+<div style='width:100%; height:100%; position:absolute;'>
+    <div id='graph1' ></div>
+</div>
+</body>
+
+</html>

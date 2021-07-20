@@ -1,0 +1,31 @@
+
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/vivagraphjs/0.12.0/vivagraph.min.js' %>
+    <script type="text/javascript">
+            // Step 1. We create a graph object.
+            var graph = Viva.Graph.graph();
+
+            // Step 2. We add nodes and edges to the graph:
+
+            /* Note: graph.addLink() creates new nodes if they are not yet
+               present in the graph. Thus calling this method is equivalent to:
+
+               <% nodes.map do |node| %>
+               <%= "graph.addNode(#{node[:id]});" %>
+               <% end %>
+
+               <% links.map do |link| %>
+               <%= "graph.addLink(#{link[:source]}, #{link[:target]});" %>
+               <% end %>
+
+            */
+
+            // Step 3. Render the graph.
+            var renderer = Viva.Graph.View.renderer(graph);
+            renderer.run();
+    </script>
+
+    <style type="text/css" media="screen">
+        html, body, svg { width: 100%; height: 100%;}
+    </style>
+
+<body>

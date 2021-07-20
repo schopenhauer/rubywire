@@ -8,6 +8,13 @@ class GraphController < ApplicationController
     }
   end
 
+  def show2
+    render 'graph/show2', locals: {
+      nodes: get_nodes,
+      links: get_links
+    }
+  end
+
   def json
     render json: {
       nodes: get_nodes,

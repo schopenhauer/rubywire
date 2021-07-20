@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get '/interfaces/:id/file', to: 'interfaces#download_config', as: 'download_config'
 
   get '/network', to: 'graph#show', as: 'graph'
+  get '/network2', to: 'graph#show2', as: 'graph2'
   get '/network/json', to: 'graph#json', as: 'graph_json'
 
   resources :hosts
