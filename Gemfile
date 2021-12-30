@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.2'
+ruby '3.0.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.3'
@@ -21,6 +21,8 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'net-sftp'
+gem 'ed25519'
+gem 'bcrypt_pbkdf'
 gem 'rqrcode'
 gem 'kaminari'
 gem 'bulma-rails', '~> 0.9.1'
