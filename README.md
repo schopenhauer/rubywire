@@ -31,7 +31,7 @@ This app provides a simple web interface for managing [WireGuard](https://www.wi
 ## Credits
 
 * [WireGuard](https://www.wireguard.com)
-* [Ruby](https://www.ruby-lang.org) 3.0
-* [Ruby on Rails](https://rubyonrails.org) 6.1
+* [Ruby](https://www.ruby-lang.org)
+* [Ruby on Rails](https://rubyonrails.org)
 * [Bulma](https://bulma.io) CSS framework
 * [D3.js](https://d3js.org) library
